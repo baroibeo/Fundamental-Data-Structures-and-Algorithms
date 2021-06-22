@@ -21,6 +21,17 @@ int main(){
     for(int i =0 ;i<NUM;i++){
         cin>>arr[i];
     }
+
     SelectionSort selection_sort;
     sort(&selection_sort,arr);
+
+    BubbleSort bubble_sort;
+    sort(&bubble_sort,arr);
+
+    InsertionSort insertion_sort;
+    sort(&insertion_sort,arr);
+
+    MergeSort merge_sort;
+    sort(&merge_sort,arr);
+
 }

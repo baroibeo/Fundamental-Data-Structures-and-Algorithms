@@ -25,10 +25,14 @@ class Sort{
             for(int i=0;i<NUM;i++){
                 if(i==NUM-1){
                     cout<<this->arr[i];
+                    break;
                 }
                 if(this->arr[i]>this->arr[i+1]){
-                    cout<<this->arr[i]<<" ";
                     this->isSorted=false;
+                    return;
+                }
+                else{
+                    cout<<this->arr[i]<<" ";
                 }
             }
             cout<<endl;
@@ -91,7 +95,7 @@ class BubbleSort: public Sort{
 
     public:
         BubbleSort(){
-            cout<<"BubbleSort:";
+            cout<<"BubbleSort:"<<endl;
         }
 
         ~BubbleSort(){
@@ -99,7 +103,14 @@ class BubbleSort: public Sort{
         }
 
         void implement(){
-            /* implement bubble sort */
+            for(int i = 0 ;i<NUM;i++){
+                for(int j=NUM-1;j>i;j--){
+                    if (this->arr[j]<this->arr[j-1]){
+                        swap(&this->arr[j],&this->arr[j-1]);
+                    }
+
+                }
+            }
             
         }
 };
@@ -108,11 +119,132 @@ class InsertionSort: public Sort{
 
     public:
         InsertionSort(){
-            cout<<"InsertionSort:";
+            cout<<"InsertionSort:"<<endl;
         }
 
         ~InsertionSort(){
             cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        }
+
+        void implement(){
+            for(int i =1 ; i<NUM;i++){
+                int temp=this->arr[i];
+                while(i>0 && temp<this->arr[i-1]){
+                    this->arr[i]=this->arr[i-1];
+                    i--;
+                }
+                this->arr[i]=temp;
+            }
+        }
+};
+
+class MergeSort: public Sort{
+
+    public:
+        MergeSort(){
+            cout<<"MergeSort:"<<endl;
+        }
+        ~MergeSort(){
+            cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        }
+
+        void implement(){
+            mergeSort(0,NUM-1);
+        }
+
+        //Partition array 
+        void mergeSort(int left,int right){
+            if(left < right){
+                int mid = left + (right-left)/2;
+                mergeSort(left,mid); //Mergesort left sub array
+                mergeSort(mid+1,right); // Mergesort right sub array
+                this->merge(left,mid,right); //Combine
+            }
+        }
+
+        //Combination left and right array
+        void merge(int left,int mid,int right){
+            int numLeft = mid-left+1; //number of number of left sub array
+            int numRight = right-mid; //number of number of right sub array
+            int arrLeft[numLeft]; //temp array to store left sub array's elements
+            int arrRight[numRight]; // temp array to store right sub array's elements
+
+            //Copy
+            for (int i=0;i<numLeft;i++){
+                arrLeft[i] = this->arr[left+i];
+            }
+            for(int i=0;i<numRight;i++){
+                arrRight[i] = this->arr[mid+1+i];
+            }
+
+            int i = 0, j=0;
+            int k = left;
+            
+            while (i<numLeft && j<numRight){
+                if (arrLeft[i] < arrRight[j]){
+                    this->arr[k]=arrLeft[i];
+                    k++;
+                    i++;
+                }
+                else{
+                    this->arr[k] = arrRight[j];
+                    k++;
+                    j++;
+                }
+            }
+
+            //Add rest elements in left / right sub array to the main array
+            while (i<numLeft){
+                this->arr[k]=arrLeft[i];
+                i++;
+                k++;
+            }
+            while (j<numRight){
+                this->arr[k]=arrRight[j];
+                k++;
+                j++;
+            }
+        }
+};
+
+class QuickSort: public Sort{
+
+    public:
+        QuickSort(){
+            cout<<"QuickSort:"<<endl;
+        }
+        ~QuickSort(){
+            cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        }
+
+        void implement(){
+
+        }
+
+};
+
+class HeapSort: public Sort{
+
+    public:
+        HeapSort(){
+            cout<<"HeapSort:"<<endl;
+        }
+        ~HeapSort(){
+            cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        }
+};
+
+class CountingSort: public Sort{
+    public:
+        CountingSort(){
+            cout<<"CoutingSort:"<<endl;
+        }
+        ~CountingSort(){
+            cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        }
+
+        void implement(){
+
         }
 };
 
